@@ -1,0 +1,112 @@
+.create-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-message {
+  color: red;
+}
+
+.team-name {
+  font-size: 1.5em;
+  margin-right: 10px;
+}
+
+.team-name-wrapper {
+  margin-bottom: 1em;
+}
+
+.team1 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+}
+
+.team1 h1, .team1 h2, .team1 h3, .team1 h4, .team1 h5, .team1 h6 {
+}
+
+.card {
+}
+
+.cardNew {
+  flex-direction: row;
+
+  position: relative;
+  display: flex;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.card-img {
+  object-fit: cover;
+}
+
+#memberCard {
+  padding-left: 15%;
+}
+
+.panel-shadow {
+  box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
+}
+
+.panel-white {
+  border: 1px solid #dddddd;
+}
+
+.panel {
+  font-size: 13px;
+  color: #454545;
+  //background: #fafafa;
+  position: relative;
+  overflow-x: hidden;
+  font-family: 'Source Sans Pro', 'Oxygen', sans-serif;
+}
+
+.panel-white .panel-heading {
+  color: #333;
+  //background-color: #fff;
+  border-color: #ddd;
+}
+
+.panel-white .panel-footer {
+  //background-color: #fff;
+  border-color: #ddd;
+}
+
+.bg2 {
+  //noinspection CssUnknownTarget
+  background: url('/assets/img/climate-cleanup-logo.png');
+}
+
+.profile-widget {
+  position: relative;
+}
+
+.profile-widget .image-container {
+  background-size: cover;
+  background-position: center;
+  padding: 190px 0 10px;
+}
+
+.profile-widget .image-container .profile-background {
+  width: 100%;
+  height: auto;
+}
+
+.profile-widget .image-container .avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 0 auto -60px;
+  display: block;
+}
+
+.profile-widget .details {
+  padding: 50px 15px 15px;
+  text-align: center;
+}
+

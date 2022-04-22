@@ -1,0 +1,27 @@
+.setBottom {
+  position: fixed;
+  height: auto;
+  bottom: 0;
+  left: 0;
+
+}
+
+.cdkDrag {
+  display: inline-block;
+}
+
+.svg-icon {
+  width: 2em;
+  height: 2em;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+  fill: #4691f6;
+}
+
+.svg-icon circle {
+  stroke: #4691f6;
+  stroke-width: 1;
+}

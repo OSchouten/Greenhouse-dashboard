@@ -1,0 +1,61 @@
+.filter-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  .fa {
+    margin-right: 5px;
+  }
+}
+
+.query-tags {
+  flex-grow: 3;
+}
+
+.sort-methods {
+  width: 200px;
+  margin-left: 20px;
+}
+
+.tags {
+  height: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+}
+
+.filter-tag {
+  font-size: 1em;
+  margin-right: 10px;
+
+  .circle-tag {
+    background-color: white;
+    -webkit-mask-image: url("../../../assets/img/circle.svg");
+    mask-image: url("../../../assets/img/circle.svg");
+    width: .8em;
+    height: .8em;
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  .delete-tag {
+    visibility: hidden;
+    background-image: url("../../../assets/img/cross.svg");
+    background-size: cover;
+    width: .5em;
+    height: .5em;
+    display: inline-block;
+    margin: .15em;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    .delete-tag {
+      visibility: visible;
+    }
+  }
+}
+

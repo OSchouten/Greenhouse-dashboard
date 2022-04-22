@@ -1,0 +1,51 @@
+<div class="container-fluid mt-4 styleTop">
+  <div class="">
+    <div class="rounded d-flex justify-content-center">
+      <div class="col-md-8 col-sm-12 shadow-lg p-5">
+        <div class="text-left">
+          <h3 class="text-primary title lang">Settings</h3>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <h2>Temperature metric:</h2>
+            <div class="btn-group btn-toggle">
+              <button [class.btn-primary]="settingsService.settings.isCelsius"
+                      [class.btn-light]="!settingsService.settings.isCelsius" (click)="setCelsius()"
+                      class="btn btn-lg celsius">C
+              </button>
+              <button [class.btn-primary]="settingsService.settings.isFahrenheit"
+                      [class.btn-light]="!settingsService.settings.isFahrenheit" (click)="setFahrenheit()"
+                      class="btn btn-lg  fahrenheit">F
+              </button>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <h2>Dark mode:</h2>
+
+            <div class="btn-group btn-toggle">
+              <button class="btn btn-lg btn-primary btnText"><span class="text" (click)="value = !value; refresh()">Switch theme</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row pt-5">
+          <div class="col-sm-6">
+            <!--            <h2>Language:</h2>-->
+            <!--            <select class="custom-select" (change)="changeLang($event)">-->
+            <!--              <option value="EN">English</option>-->
+            <!--              <option value="NL">Dutch</option>-->
+            <!--              <option value="DE">German</option>-->
+            <!--              <option value="FR">French</option>-->
+            <!--            </select>-->
+          </div>
+          <div class="col-sm-6">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

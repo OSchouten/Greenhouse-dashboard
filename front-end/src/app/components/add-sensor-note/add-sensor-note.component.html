@@ -1,0 +1,20 @@
+<div class="add-note-wrapper">
+  <div class="header-group">
+    <p>Header</p>
+    <div class="input-group">
+      <input [(ngModel)]="note.header" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="content-group">
+    <p>Content</p>
+    <md-editor class="editor" name="Content"
+               [(ngModel)]="note.content"
+               [options]="options"
+               required>
+    </md-editor>
+  </div>
+  <div class="submit-button-group">
+    <button type="button" class="btn btn-primary" (click)="submitNote()">Submit Note</button>
+  </div>
+</div>
+

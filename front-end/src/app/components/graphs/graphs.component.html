@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="text-center">
+    <div class="btn-group" role="button" style="width: 600px">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="graphAmountDropDown"
+                data-bs-toggle="dropdown" aria-expanded="false">
+          Chart Type
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenu">
+          <li><a class="dropdown-item" [class.active]="activeChartType === 0" (click)="onChartTypeChange(0)">Most
+            important sensors (3 charts)</a></li>
+          <li><a class="dropdown-item" [class.active]="activeChartType === 1" (click)="onChartTypeChange(1)">All sensors
+            (10 charts)</a></li>
+        </ul>
+      </div>
+      <input type="radio" class="btn-check text-center" name="options-outlined" (click)="onReload($event)"
+             value="false" id="values" autocomplete="off"
+             [checked]="!isTargetValue">
+      <label class="btn btn-outline-primary" for="values">Values</label>
+      <input type="radio" class="btn-check text-center" name="options-outlined" (click)="onReload($event)"
+             value="true" id="targetValues" autocomplete="off" [checked]="isTargetValue">
+      <label class="btn btn-outline-primary" for="targetValues">Target Values</label>
+    </div>
+  </div>
+
+  <div class="graphs-content" style="width: 600px">
+    <div id="lineChart0" style="display: inline-block !important;" type="button" data-bs-toggle="modal"
+         data-bs-target="#chartModal0" (click)="reloadModalGraph()"></div>
+    <div id="lineChart1" style="display: inline-block !important;" type="button" data-bs-toggle="modal"
+         data-bs-target="#chartModal1" (click)="reloadModalGraph()"></div>
+    <div id="lineChart2" style="display: inline-block !important;" type="button" data-bs-toggle="modal"
+         data-bs-target="#chartModal2" (click)="reloadModalGraph()"></div>
+    <div id="lineChart3" style="display: inline-block !important;" type="button" data-bs-toggle="modal"
+         data-bs-target="#chartModal3" (click)="reloadModalGraph()"></div>
+    <div id="lineChart4" style="display: inline-block !important;" type="button" data-bs-toggle="modal"
+         data-bs-target="#chartModal4" (click)="reloadModalGraph()"></div>
+    <div id="lineChart5" style="display: inline-block !important;" type="button" data-bs-toggle="modal"
+         data-bs-target="#chartModal5" (click)="reloadModalGraph()"></div>
+    <div id="lineChart6" style="display: inline-block !important;" type="button" data-bs-toggle="modal"
+         data-bs-target="#chartModal6" (click)="reloadModalGraph()"></div>
+    <div id="lineChart7" style="display: inline-block !important;" type="button" data-bs-toggle="modal"
+         data-bs-target="#chartModal7" (click)="reloadModalGraph()"></div>
+    <div id="lineChart8" style="display: inline-block !important;" type="button" data-bs-toggle="modal"
+         data-bs-target="#chartModal8" (click)="reloadModalGraph()"></div>
+    <div id="lineChart9" style="display: inline-block !important;" type="button" data-bs-toggle="modal"
+         data-bs-target="#chartModal9" (click)="reloadModalGraph()"></div>
+  </div>
+
+  <div *ngIf="isLoading" class="pt-5" style="width: 600px">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngFor="let number of ngForNumber(10); let i = index">
+  <div class="modal" tabindex="-2" id="chartModal{{i}}">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h2 class="modal-title w-100" id="chartModalTitle{{i}}"></h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div *ngIf="isLoading">
+              <div>
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <h2 style="display: inline-block !important; padding-left: 10px">Graph is loading...</h2>
+              </div>
+            </div>
+            <div id="graphLocation{{i}}" class="col d-flex"></div>
+            <div class="col pt-5 scrollable">
+              <table class="table table-striped" id="table{{i}}">
+                <thead>
+                <tr>
+                  <th scope="col" class="datapoint">Datapoint</th>
+                  <th scope="col" class="value">Value</th>
+                  <th scope="col" class="unit">Unit</th>
+                  <th scope="col" class="timeDate">Time and Date</th>
+                </tr>
+                </thead>
+                <tbody id="tableBody{{i}}">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

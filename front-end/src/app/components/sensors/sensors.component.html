@@ -1,0 +1,96 @@
+<div class="container-fluid float-start pt-4" style="max-width: 300px">
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="air_temp_c" (change)="onSensorChange($event)"
+           [checked]="checkIfSelected('air_temp_c')">
+    <label class="form-check-label" for="air_temp_c">
+      Air Temperature
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="air_humidity" (change)="onSensorChange($event)"
+           [checked]="checkIfSelected('air_humidity')">
+    <label class=" form-check-label" for="air_humidity">
+      Air Humidity
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="soil_temp_c" (change)="onSensorChange($event)"
+           [checked]="checkIfSelected('soil_temp_c')">
+    <label class=" form-check-label" for="soil_temp_c">
+      Soil Temperature
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="soil_humidity" (change)="onSensorChange($event)"
+           [checked]="checkIfSelected('soil_humidity')">
+    <label class=" form-check-label" for="soil_humidity">
+      Soil Humidity
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="soil_mix_id" (change)="onSensorChange($event)"
+           [checked]="checkIfSelected('soil_mix_id')">
+    <label class=" form-check-label" for="soil_mix_id">
+      Soil Mix
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="water_ph" (change)="onSensorChange($event)"
+           [checked]="checkIfSelected('water_ph')">
+    <label class=" form-check-label" for="water_ph">
+      Water pH
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="water_mix_id" (change)="onSensorChange($event)"
+           [checked]="checkIfSelected('water_mix_id')">
+    <label class=" form-check-label" for="water_mix_id">
+      Water Mix
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="lighting_rgb" (change)="onSensorChange($event)"
+           [checked]="checkIfSelected('lighting_rgb')">
+    <label class=" form-check-label" for="lighting_rgb">
+      RGB Lighting
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="daily_exposure" (change)="onSensorChange($event)"
+           [checked]="checkIfSelected('daily_exposure')">
+    <label class=" form-check-label" for="daily_exposure">
+      Daily Exposure
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="CO2_level" (change)="onSensorChange($event)"
+           [checked]="checkIfSelected('CO2_level')">
+    <label class=" form-check-label" for="daily_exposure">
+      CO2 level
+    </label>
+  </div>
+</div>
+
+<div class="col-md-8 offset-md-5">
+  <button class="save-btn" (click)="lockSensors()">
+    <i class="{{isLocked}}" aria-hidden="true"></i> {{lockText}}
+  </button>
+</div>
+
+<div class="container-fluid col-md-6 pt-4" style="float: left">
+
+  <div style="{{style}}" [dragula]='"sensorSetting"' [dragulaModel]="sensors"
+       class="row row-cols-1 row-cols-md-3 g-3 h-100">
+    <div *ngFor="let sensor of sensors">
+      <app-sensor [receivedSensorName]="sensor.sensorType" (newNoteEvent)="setCurrentSensor($event)"></app-sensor>
+    </div>
+  </div>
+  <div class="pb-5"></div>
+</div>
+
+<div class="col-md-3 justify-content-end container-fluid">
+  <app-graphs class="d-flex"></app-graphs>
+</div>
+
+
+

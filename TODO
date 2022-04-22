@@ -1,0 +1,34 @@
+
+DOEL: Ophalen van sensor identifier
+
+> Probleem:
+Sensors zijn gemocked, en data wordt opgehaald aan de hand van de attributen van de mock.
+Data van deze sensors wordt niet aangepast in de service.
+
+> Probleem:
+We moeten een goede representatie van de gebruiker hebben. e.g. heb altijd een team id van de gebruiker en de hele User instance.
+
+> Potentieel Probleem:
+Een team heeft altijd een lijst van users met ALLE informatie van de users. Levert dit security risks op?
+
+> Probleem:
+Bij het registreren wordt er gecheckt voor een bearer token, deze is natuurlijk niet aanwezig.
+De user kan momenteel niet registreren zonder bearer token. Dit moet gefixt worden.
+
+> Probleem:
+Geen goede back references tussen Team en Notes, dit zorgt voor een infinite loop.
+
+> Probleem:
+Het team moet worden opgehaald wanneer de user inlogt. Dit team moet dan ook in de Team service staan en accuraat zijn.
+Als het team alleen via de user instance bereikbaar is, betekent dat dat het team over tijd out-dated kan worden.
+We hebben dan minder controler over de integrity van het team.
+
+> Probleem:
+Mijn Windows start niet op. Mijn Winload.efi en Winload.exe zijn kapot en mijn HDD is corrupted. T-T
+
+ ██████╗ ██████╗██╗   ██╗      ██╗  ██╗
+██╔════╝██╔════╝██║   ██║      ██║  ██║
+██║     ██║     ██║   ██║█████╗███████║
+██║     ██║     ██║   ██║╚════╝╚════██║
+╚██████╗╚██████╗╚██████╔╝           ██║
+ ╚═════╝ ╚═════╝ ╚═════╝            ╚═╝

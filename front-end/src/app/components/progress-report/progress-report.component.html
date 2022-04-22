@@ -1,0 +1,89 @@
+<div class="page-content container pt-2 note-has-grid parent">
+  <ul class="nav nav-pills p-3 mb-3 rounded-pill align-items-center borderStyle" style="background: #F5F5F5;">
+    <li class="nav-item">
+      <a type="button"
+         class="nav-link rounded-pill note-link buttons d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2 active"
+         id="all-category"
+         (click)="filterAll()">
+        <i class="icon-layers mr-1"></i><span class="d-none d-md-block fontStyle">All Notes</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a type="button"
+         class="nav-link rounded-pill note-link buttons note-Agronomy d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"
+         id="note-Agronomy"
+         (click)="filterNotes('Agronomy')">
+        <i class="icon-briefcase mr-1"></i><span class="d-none d-md-block fontStyle">Agronomy</span></a>
+    </li>
+    <li class="nav-item">
+      <a type="button"
+         class="nav-link rounded-pill note-link buttons note-Botany d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"
+         id="note-Botany"
+         (click)="filterNotes('Botany')">
+        <i class="icon-share-alt mr-1"></i><span class="d-none d-md-block fontStyle">Botany</span></a>
+    </li>
+    <li class="nav-item">
+      <a type="button"
+         class="nav-link rounded-pill note-link buttons note-ClimateScience d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"
+         id="note-ClimateScience"
+         (click)="filterNotes('ClimateScience')"> <i class="icon-tag mr-1"></i><span
+        class="d-none d-md-block fontStyle">Climate Science</span></a>
+    </li>
+    <li class="nav-item">
+      <a type="button"
+         class="nav-link rounded-pill note-link buttons note-Geology d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"
+         id="note-Geology"
+         (click)="filterNotes('Geology')">
+        <i class="icon-tag mr-1"></i><span class="d-none d-md-block fontStyle">Geology</span></a>
+    </li>
+    <li class="nav-item">
+      <a type="button"
+         class="nav-link rounded-pill note-link buttons note-Hydrology d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"
+         id="note-Hydrology"
+         (click)="filterNotes('Hydrology')">
+        <i class="icon-tag mr-1"></i><span class="d-none d-md-block fontStyle">Hydrology</span></a>
+    </li>
+    <li class="nav-item styleRemoveTeams">
+      <a class="btn btn-sm btn-primary rounded-pill fontStyle" type="button" id="removeTeamFilter" (click)="removeTeamFilter()">Remove team filter</a>
+    </li>
+    <li class="nav-item styleTeams">
+      <select type="button"
+              class="nav-link rounded-pill border border-primary note-link d-flex px-2 px-md-3 mr-0 mr-md-2 fontStyle"
+              aria-label="Default select example" [(ngModel)]="filterString" (click)="filterTeam()">
+        <option type="button" class="fontStyle" [ngValue]="null" [disabled]="true" hidden>Select a team!</option>
+        <option type="button" *ngFor="let team of getTeams" [ngValue]="team">
+          {{team.teamName}}
+        </option>
+      </select>
+    </li>
+  </ul>
+
+  <!--   show notes with given data-->
+  <div id="note-full-container" class="note-has-grid row">
+    <div class="container all-category ">
+      <div class="row">
+        <h1 *ngIf="isEmpty" class="d-flex justify-content-center">No notes available</h1>
+
+        <div class="col-sm-4" *ngFor="let note of filteredNotes">
+          <div class=" single-note-item all-category note-important " style="padding: 5px">
+            <div class="card card-body">
+              <span class="side-stick"></span>
+              <h2 class="note-title colorStyle text-truncate w-75 mb-0" data-noteheading="">{{note[0].header}}</h2>
+              <p class="note-inner-content text-truncate" data-notecontent="timeStamp">{{note[0].date | date:
+                'dd-MM-yyyy'}}</p>
+              <div class="note-content">
+                <h4 class="note-date font-12 text-truncate">
+                  {{note[0].content}}
+                </h4>
+              </div>
+              <div class="note-content" style="float: right">
+                <hr style="width: 100px">
+                <p class="note-inner-content text-truncate" data-notecontent="timeStamp">{{note[1]}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

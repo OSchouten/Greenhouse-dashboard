@@ -1,0 +1,9 @@
+<div class="h-75 wrapper form-field">
+  <input [(ngModel)]="team.teamName" class="w-50 team-name-input form-control" type="text" maxlength="20"
+         placeholder="Team Name"
+         [ngClass]="{'is-invalid' : isNotValid}">
+  <br>
+  <span *ngIf="isNotValid">Team name must contain more than just whitespace.</span>
+  <br>
+  <button (click)="createGroup()" class="btn btn-primary">Create team</button>
+</div>

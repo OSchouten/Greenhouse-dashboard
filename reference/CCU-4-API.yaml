@@ -1,0 +1,571 @@
+openapi: 3.0.0
+info:
+  title: CCU-4 API
+  version: '1.0'
+  description: The API for CCU-4's EWA project.
+  contact:
+    name: CCU-4
+    email: noah.visser@hva.nl
+servers:
+  - url: 'https://stb-be-ccu4-staging.herokuapp.com'
+    description: herokuapp
+paths:
+  /note:
+    parameters: []
+    get:
+      summary: Get Note Info by Note ID
+      tags: []
+      responses:
+        '200':
+          description: Note Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+              examples: {}
+        '404':
+          description: Note Not Found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    timestamp: '2021-11-15T20:03:07.241+00:00'
+                    status: 404
+                    error: Not Found
+                    trace: 'org.springframework.web.server.ResponseStatusException: 404 NOT_FOUND "Couldn''t find a note by the given id.";'
+                    message: Couldn't find a note by the given id.
+                    path: /note
+                properties:
+                  timestamp:
+                    type: string
+                    format: date-time
+                  status:
+                    type: number
+                  error:
+                    type: string
+                    minLength: 1
+                  trace:
+                    type: string
+                    minLength: 1
+                  message:
+                    type: string
+                    minLength: 1
+                  path:
+                    type: string
+                    minLength: 1
+                required:
+                  - timestamp
+                  - status
+                  - error
+                  - trace
+                  - message
+                  - path
+              examples:
+                example:
+                  value:
+                    timestamp: '2021-11-15T20:03:07.241+00:00'
+                    status: 404
+                    error: Not Found
+                    trace: ...
+                    message: Couldn't find a note by the given id.
+                    path: /note
+      operationId: get-notes-noteId
+      description: Retrieve the information of the note with the matching note ID.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: integer
+              exclusiveMinimum: true
+              minimum: 0
+              description: ID
+            examples: {}
+        description: ''
+    delete:
+      summary: Delete Note by Note ID
+      operationId: delete-note
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: integer
+              description: ID
+              exclusiveMinimum: true
+              minimum: 0
+  /note/team:
+    post:
+      summary: Create New Team Note
+      operationId: post-teamNote
+      responses:
+        '200':
+          description: TeamNote Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamNote'
+              examples:
+                New User Bob Fellow:
+                  value:
+                    id: 12
+                    firstName: Bob
+                    lastName: Fellow
+                    email: bob.fellow@gmail.com
+                    dateOfBirth: '1996-08-24'
+                    emailVerified: false
+                    createDate: '2020-11-18'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamNote'
+            examples: {}
+        description: 'Post a Team Note. ID can be ignored here, for it will be changed to a new ID. Upon saving the new note the note will be sent back, it will contain the new ID.'
+      description: Create a new Team Note.
+    parameters: []
+    put:
+      summary: Update Team Note
+      operationId: put-note-team
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamNote'
+      description: Update a Team Note.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamNote'
+    delete:
+      summary: Delete Team Note
+      operationId: delete-note-team
+      responses:
+        '200':
+          description: Responds with the deleted note.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamNote'
+        '404':
+          description: Not Found
+      description: Delete Team Note
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamNote'
+        description: The note you'd like to delete.
+  /note/sensor:
+    post:
+      summary: Create New Sensor Note
+      operationId: post-note-team
+      responses:
+        '200':
+          description: Sensor Note Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensorNote'
+              examples:
+                New User Bob Fellow:
+                  value:
+                    id: 12
+                    firstName: Bob
+                    lastName: Fellow
+                    email: bob.fellow@gmail.com
+                    dateOfBirth: '1996-08-24'
+                    emailVerified: false
+                    createDate: '2020-11-18'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SensorNote'
+            examples: {}
+        description: 'Post a Sensor Note. ID can be ignored here, for it will be changed to a new ID. Upon saving the new note the note will be sent back, it will contain the new ID.'
+      description: Create a new Team Note.
+    parameters: []
+    put:
+      summary: Update Sensor Note
+      operationId: put-note-sensor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensorNote'
+      description: Update a Sensor Note.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SensorNote'
+    delete:
+      summary: Delete Sensor Note
+      operationId: delete-note-sensor
+      responses:
+        '200':
+          description: Responds with the deleted note.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensorNote'
+        '404':
+          description: Not Found
+      description: Delete Sensor Note
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SensorNote'
+        description: The note you'd like to delete.
+  /note/all:
+    get:
+      summary: Get all notes
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Note'
+      operationId: get-note-all
+  /note/all/team:
+    get:
+      summary: Get all Team Notes
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamNote'
+      operationId: get-all-team
+    parameters: []
+  /note/all/sensor:
+    get:
+      summary: Get all Sensor Notes
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SensorNote'
+      operationId: get-all-sensor
+    parameters: []
+  /team:
+    get:
+      summary: Get Team info by Team ID
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '404':
+          description: Not Found
+      operationId: get-team
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: integer
+              description: Team ID
+        description: ''
+    post:
+      summary: Create new Team
+      operationId: post-team
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Team'
+        description: 'The ID doesn''t matter here, it will be replaced by a generated ID. The generated ID can be found in the response.'
+    put:
+      summary: Update a Team
+      operationId: put-team
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Team'
+    delete:
+      summary: Delete a Team by Team ID
+      operationId: delete-team
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '404':
+          description: Not Found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: integer
+              description: Team ID
+  /team/notes:
+    get:
+      summary: Get all Notes linked to the Team by Team ID
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamNote'
+        '404':
+          description: Not Found
+      operationId: get-team-notes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: integer
+              description: Team ID
+  /team/users:
+    get:
+      summary: Get all Users of the Team by Team ID
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '404':
+          description: Not Found
+      operationId: get-team-users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: integer
+              description: Team ID
+        description: ''
+  /team/sensors:
+    get:
+      summary: Get all Sensors of a Team by Team ID
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sensor'
+        '404':
+          description: Not Found
+      operationId: get-team-sensors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: integer
+              description: Team ID
+        description: ''
+  /team/all:
+    get:
+      summary: Get all Teams
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+      operationId: get-team-all
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      description: ''
+      x-examples: {}
+      x-internal: false
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the given user.
+          exclusiveMinimum: true
+          minimum: 1
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        team:
+          $ref: '#/components/schemas/Team'
+      required:
+        - id
+        - email
+        - firstName
+        - lastName
+    Team:
+      title: Team
+      type: object
+      properties:
+        id:
+          type: integer
+          exclusiveMinimum: true
+          minimum: 1
+        name:
+          type: string
+      required:
+        - id
+        - name
+    Sensor:
+      title: Sensor
+      type: object
+      properties:
+        idx:
+          type: string
+        sensorType:
+          type: string
+        minValue:
+          type: string
+        maxValue:
+          type: string
+        unit:
+          type: string
+        readableName:
+          type: string
+        description:
+          type: string
+        team:
+          $ref: '#/components/schemas/Team'
+      required:
+        - idx
+    Note:
+      title: Note
+      oneOf:
+        - $ref: '#/components/schemas/TeamNote'
+        - $ref: '#/components/schemas/SensorNote'
+      x-internal: true
+    TeamNote:
+      title: TeamNote
+      type: object
+      x-examples:
+        example-1:
+          id: 0
+          header: string
+          content: string
+          date: '2019-08-24'
+          team: string
+      properties:
+        id:
+          type: integer
+        header:
+          type: string
+        content:
+          type: string
+        date:
+          type: string
+          format: date
+        team:
+          $ref: '#/components/schemas/Team'
+      required:
+        - id
+    SensorNote:
+      title: SensorNote
+      type: object
+      properties:
+        id:
+          type: integer
+        header:
+          type: string
+        content:
+          type: string
+        date:
+          type: string
+          format: date
+        sensor:
+          $ref: '#/components/schemas/Sensor'
+    SensorHistory:
+      title: SensorHistory
+      type: object
+      properties:
+        date_time:
+          type: string
+        user_id:
+          type: string
+        gh_id:
+          type: integer
+        air_temp_c:
+          type: number
+        air_humidity:
+          type: number
+        soil_temp_c:
+          type: number
+        soil_humidity:
+          type: number
+        soil_mix_id:
+          type: integer
+        water_ph:
+          type: number
+        water_mix_id:
+          type: integer
+        lighting_rgb:
+          type: string
+        daily_exposure:
+          type: number
+        co2_level:
+          type: number
+        code:
+          type: integer
+  securitySchemes: {}

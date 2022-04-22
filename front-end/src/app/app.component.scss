@@ -1,0 +1,29 @@
+.dark {
+  background-color: #454545;
+}
+
+.inner-container {
+  overflow-y: scroll;
+  flex-grow: 1;
+}
+
+app-sidebar {
+  flex-grow: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+
+  //I know this is bad, but pain.
+  height: 80%;
+
+}
+
+.app-wrapper {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-flow: column;
+}

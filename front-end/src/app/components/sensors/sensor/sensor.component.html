@@ -1,0 +1,58 @@
+<div
+  *ngIf="sensor.identifier != undefined && sensor.readableName != undefined && sensor.minValue != undefined && sensor.maxValue != undefined"
+  class="h-100">
+  <div class="cardNew shadow-lg border-2 border-dark h-100">
+    <div class="dropdown">
+      <div class="justify-content-end d-flex pt-2">
+        <img style="pointer-events: auto" src="/assets/img/three-dots-vertical.svg" alt="three-dots" width="25"
+             height="25"
+             data-bs-toggle="dropdown" class="bi bi-three-dots-vertical dropdown-toggle" type="button"/>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li>
+            <a style="pointer-events: auto" class="dropdown-item" data-bs-target="#notes" data-bs-toggle="modal"
+               (click)="onSelectAddNote()"
+            >Add a note</a>
+            <a style="pointer-events: auto" class="dropdown-item" data-bs-target="#notes" data-bs-toggle="modal"
+               (click)="onSelectSeeNotes()"
+            >See notes</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <app-add-note [sensorId]="sensor.identifier"></app-add-note>
+
+    <h5 class="card-title text-center ">{{sensor.readableName}}</h5>
+    <div class="card-body">
+      <div *ngIf="isColor" id="currentColorValue" class="text-center pb-4 pt-1">{{displayValue}}</div>
+      <div *ngIf="!isColor" id="currentValue" class="text-center pb-4 pt-1">{{displayValue}} {{unit}}</div>
+      <p class="card-text text-center">{{sensor.description}}</p>
+      <div *ngIf="!isColor" class="text-center">
+        <label for="{{sensor.readableName}}" class="form-label">Range: {{sensor.minValue}} {{unit}}
+          - {{sensor.maxValue}} {{unit}}</label>
+        <input style="pointer-events: auto" type="range" class="form-range" min="{{sensor.minValue}}"
+               max="{{sensor.maxValue}}"
+               value="{{selectedValue}}"
+               step="{{sensor.valueStep}}" id="{{sensor.readableName}}" (change)="sliderChange($event)">
+        <output name="rangeVal" class="pb-3">selected value: {{selectedDisplayValue}} {{unit}}</output>
+      </div>
+
+      <div *ngIf="isColor" class="text-center">
+        <label for="colorPicker" class="pb-3"> Please pick a colour here
+        </label><input type="color" id="colorPicker" value="{{displayValue}}" (change)="colorPickerChange($event)">
+        <div class="pb-4"></div>
+      </div>
+      <div>
+        <div class="row">
+          <div style="pointer-events: auto" class="col-6 ">
+            <a (click)="updateButton()" class="btn btn-primary d-flex justify-content-center">Update</a>
+          </div>
+          <div style="pointer-events: auto" class="col-6 ">
+            <a (click)="resetButton()" class="btn btn-primary d-flex justify-content-center">Reset</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

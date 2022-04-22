@@ -1,0 +1,180 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="d-flex justify-content-center styleTop">
+        <div class="col-md-12 col-sm-12 shadow-lg p-5 bg-light">
+          <div class="text-center">
+            <h1 class="text-primary ">Register user</h1>
+          </div>
+          <div class="p-4">
+            <form action="">
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-envelope text-white"></i></span>
+                <input type="email" class="form-control" name="email" placeholder="Email" [(ngModel)]="email"
+                       [ngClass]="{'is-invalid' : (!email && error) || error}">
+              </div>
+              <div class="d-grid col-12 mx-auto">
+                <button class="btn btn-primary" type="button" (click)="addToken()">Register</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!--<button type="button" class="btn btn-primary" (click)="deleteToken()">Delete</button>-->
+    </div>
+    <div class="col-md-6 mt-4">
+      <div class="col mb-3">
+        <h1>Teams</h1>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Members</th>
+            <th scope="col">Remove</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let row of getTeams">
+            <th scope="row">{{ row.id }}</th>
+            <td>{{ row.teamName }}</td>
+            <td>
+              <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                      [attr.data-bs-target]="'#exampleModal'" (click)="setSelectedTeam(row.id)">Members
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-danger" type="button" data-bs-toggle="modal"
+                      [attr.data-bs-target]="'#removeConfirmationModal'" (click)="setSelectedTeam(row.id)">Remove
+              </button>
+            </td>
+          </tr>
+          </tbody>
+          <div class="d-grid col-12 mx-auto">
+            <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                    [attr.data-bs-target]="'#addTeamModel'"
+            >Add team
+            </button>
+
+          </div>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Members modal -->
+<div class="modal fade in" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body" *ngIf="selectedTeam">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Move</th>
+            <th scope="col">Remove</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let row of selectedTeam.users">
+            <th scope="row">{{ row.id }}</th>
+            <td>{{ row.firstName }} {{ row.lastName }}</td>
+            <td>
+              <button class="btn btn-primary" data-bs-dismiss="modal" data-toggle="modal" type="button"
+                      data-bs-toggle="modal"
+                      [attr.data-bs-target]="'#exampleModalMove'" (click)="setSelectedUser(row.id)">Move member
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-danger" type="button" (click)="removeUser(row.id)">Remove member</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Add member to team modal -->
+      <div class="modal-footer">
+        <select [(ngModel)]="addUserSelectedUser" class="form-select" aria-label="Default select example">
+          <option *ngFor="let user of users" [ngValue]="user">
+            {{user.firstName}}
+          </option>
+        </select>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="addUserToTeam()"
+                aria-label="Add">Add user
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Move member modal -->
+<div class="modal fade in" id="exampleModalMove" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Choose a new team.</p>
+        <select [(ngModel)]="teamSelect" class="form-select" aria-label="Default select example" *ngIf="selectedUser">
+          <option *ngFor="let row of getTeams" [ngValue]="row" id="team"
+                  [selected]="selectedTeam.id == row.id">{{row.teamName}}
+          </option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveUser()">Move member</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Members modal -->
+<div class="modal fade in" id="addTeamModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="input-group mb-3">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col">Team name</th>
+            <th scope="col">Greenhouse id</th>
+          </tr>
+          </thead>
+        </table>
+        <span class="input-group-text bg-primary rounded-left"><i class="bi bi-envelope"></i></span>
+        <input type="text" class="form-control" name="teamName" placeholder="Team name" [(ngModel)]="teamName">
+        <input type="text" class="form-control" name="teamId" placeholder="Greenhouse id" [(ngModel)]="teamId">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Add" (click)="addTeam()">
+          add
+        </button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Remove ConfirmationModal modal -->
+<div class="modal fade in" id="removeConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Are you sure that you want to remove this team?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">No</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteTeam()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+

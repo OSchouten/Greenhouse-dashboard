@@ -1,0 +1,24 @@
+<div class="modal fade in" id="addTeamModel" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="pointer-events: none">
+      <div class="add-note-wrapper has-blurred-white-bg container">
+        <h2 class="is-bold">New Note</h2>
+        <input [(ngModel)]="sensorNote.header" class="textbox" type="text" style="pointer-events: auto"
+               placeholder="Enter note title...">
+        <textarea [(ngModel)]="sensorNote.content" class="textarea" style="pointer-events: auto"
+                  placeholder="Enter note content..."></textarea>
+        <div class="btns-container">
+          <a routerLink="../" data-bs-dismiss="modal" style="pointer-events: auto" (click)="removeBackDrop()"
+             class="btn">Cancel</a>
+          <button class="btn align-end" routerLink="../" style="pointer-events: auto" data-bs-dismiss="modal"
+                  (click)="addNote()">Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

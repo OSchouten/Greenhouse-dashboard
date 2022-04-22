@@ -1,0 +1,39 @@
+stages:
+    - deploy_be
+    - deploy_fe
+
+deploy_be:
+    stage: deploy_be
+    image: node:latest
+    tags:
+        - hva
+    only:
+        refs:
+            - staging
+        changes:
+          - "back-end/**/*"
+    script:
+        - git branch -D splitting-be || true
+        - git remote rm heroku-be-app || true
+        - git remote add heroku-be-app https://heroku:$HEROKU_API_KEY@git.heroku.com/stb-be-ccu4-staging.git || true
+        - git fetch --all --unshallow
+        - git subtree split --prefix back-end -b splitting-be
+        - git push --force heroku-be-app splitting-be:master
+
+deploy_fe:
+    stage: deploy_fe
+    image: node:latest
+    tags:
+        - hva
+    only:
+        refs:
+            - staging
+        changes:
+          - "front-end/**/*"
+    script:
+        - git branch -D splitting-fe || true
+        - git remote rm heroku-fe-app || true
+        - git remote add heroku-fe-app https://heroku:$HEROKU_API_KEY@git.heroku.com/stb-fe-ccu4-staging.git || true
+        - git fetch --all --unshallow
+        - git subtree split --prefix front-end -b splitting-fe
+        - git push --force heroku-fe-app splitting-fe:master

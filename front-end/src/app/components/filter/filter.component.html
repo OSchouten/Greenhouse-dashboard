@@ -1,0 +1,55 @@
+<div class="filter-wrapper">
+  <div class="input-group query-tags">
+    <button *ngIf="tags.length + radio_buttons.length > 0" class="btn btn-outline-secondary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+      Tags
+    </button>
+    <ul *ngIf="tags.length + radio_buttons.length > 0" class="dropdown-menu">
+      <li *ngFor="let tag of tags">
+        <a class="dropdown-item" (click)="toggleSelectedTag(tag)" [class.active]="searchQueries.tags.includes(tag)">
+          {{tag}}
+        </a>
+      </li>
+      <div *ngFor="let radioGroup of radio_buttons">
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li *ngFor="let item of radioGroup.items"><a class="dropdown-item"
+                                                     (click)="toggleRadioButton(radioGroup.group, item.name)"
+                                                     [class.active]="getSelectedRadioGroupItem(radioGroup.group) === item.name"
+        ><i *ngIf="item.icon !== undefined" class="fa fa-{{item.icon}}"></i>{{item.name}}</a></li>
+      </div>
+    </ul>
+    <input [(ngModel)]="searchQuery" type="text" class="form-control">
+  </div>
+  <div *ngIf="sort_methods.length > 1" class="btn-group sort-methods">
+    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
+      {{searchQueries.sort_method}}
+    </button>
+    <ul class="dropdown-menu">
+      <li *ngFor="let method of sort_methods">
+        <a class="dropdown-item" (click)="searchQueries.sort_method = method"
+           [class.active]="method === searchQueries.sort_method">
+          {{method}}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="tags">
+      <span (click)="removeSelectedTag(tag)" *ngFor="let tag of searchQueries.tags"
+            class="filter-tag badge rounded-pill bg-primary">
+        <span class="circle-tag"><span class="delete-tag"></span></span>
+        {{tag}}
+      </span>
+  <div *ngFor="let radio of searchQueries.radio_button">
+    <span (click)="toggleRadioButton(radio.group, radio.item)" *ngIf="radio.item !== null"
+          class="filter-tag badge rounded-pill bg-danger">
+              <span class="circle-tag"><span class="delete-tag"></span></span>
+      {{radio.item}}
+      </span>
+  </div>
+</div>

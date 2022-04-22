@@ -1,0 +1,36 @@
+<div class="notes-list" *ngIf="notes.length > 0; else loading">
+
+  <button type="button" class="btn btn-primary" (click)="redirect()">Submit Note</button>
+
+  <div class="note-card" (click)="onSelectNote(note)" *ngFor="let note of notes">
+    <div *ngIf="isTeamNote(note)">
+      <abbr title="This note is visible to all teams." *ngIf="castToTeamNote(note).public; else notPublic">
+        <i class="fa fa-unlock" aria-hidden="true"></i>
+      </abbr>
+      <ng-template #notPublic>
+        <abbr title="This note is only visible to your team.">
+          <i class="fa fa-lock" aria-hidden="true"></i>
+        </abbr>
+      </ng-template>
+    </div>
+    <div>
+      <a class="note-header">{{note.header}}</a>
+      <br>
+      <div class="note-subtitle-wrapper">
+        <span class="note-subtitle">Created {{getTimeAgo(note.date)}} by {{note.user?.getFullName()}}</span>
+        <div class="note-tags">
+      <span *ngFor="let tag of note.getListOfSpecialties()" class="note-tag badge rounded-pill bg-primary">
+        {{tag}}
+      </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading class="w-100">
+  <div class="loading-wrapper">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</ng-template>

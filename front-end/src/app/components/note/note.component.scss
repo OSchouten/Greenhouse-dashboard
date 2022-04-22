@@ -1,0 +1,55 @@
+p.header {
+  font-size: 2.2em;
+}
+
+div.header {
+  background-color: #eeeeee;
+  width: 100%;
+  padding: 20px;
+  margin: 5px;
+}
+
+.content {
+  background-color: #eeeeee;
+  margin: 5px;
+  padding: 20px;
+  width: 100%;
+  font-size: 1.3em;
+}
+
+.title-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 10px;
+  width: 100%;
+}
+
+.note-subtitle {
+  font-size: 1.1em;
+}
+
+.note-tag {
+  margin-left: 15px;
+  font-size: 1em;
+}
+
+.fa-chevron-left {
+  margin-right: 15px;
+}
+
+p.back {
+  font-size: 1.4em;
+  margin: 0;
+}
+
+div.back {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 150px;
+  padding: 20px 20px 10px 20px;
+  &:hover {
+    cursor: pointer;
+  }
+}

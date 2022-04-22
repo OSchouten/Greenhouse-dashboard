@@ -1,0 +1,56 @@
+.note-card {
+  background-color: #f3f3f3;
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+
+  padding: 10px;
+
+  &:hover {
+    background-color: #e8e8e8;
+  }
+}
+
+.note-header {
+  font-size: 1.5em;
+  text-decoration: none;
+  color: black;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.note-subtitle-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.note-subtitle {
+  margin-right: 10px;
+}
+
+.note-tag {
+  margin-left: 5px;
+}
+
+.fa {
+  margin-right: 5px;
+}
+
+.notes-list {
+  //display: inline-block;
+}
+
+.loading-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}

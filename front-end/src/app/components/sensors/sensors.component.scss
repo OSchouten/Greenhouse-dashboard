@@ -1,0 +1,84 @@
+#Sensor-Bounds {
+  width: available;
+  height: available;
+  border: 1px solid gainsboro;
+}
+
+//
+//.drag-item {
+//  padding: 1em;
+//  border: 1px solid gray;
+//  background-color: white;
+//}
+
+.cdk-drag-preview {
+  background-color: gainsboro;
+  box-shadow: 0 0 8px 2px gainsboro;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.inputStyle {
+  width: 90%;
+  margin-left: 5%;
+  align-content: center;
+}
+
+.buttonStyle {
+  margin-left: 5%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.notesStyle {
+  width: 90%;
+  margin-left: 5%;
+  margin-bottom: 5px;
+  color: black;
+}
+
+#notes {
+  color: black;
+}
+
+//.testStyle{
+//  display: table;
+//  text-align: center;
+//
+//}
+.dark {
+  color: white;
+}
+
+/* in-flight clone */
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  pointer-events: none;
+}
+
+/* high-performance display:none; helper */
+.gu-hide {
+  left: -9999px !important;
+}
+
+/* added to mirrorContainer (default = body) while dragging */
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+/* added to the source element while its mirror is dragged */
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+}

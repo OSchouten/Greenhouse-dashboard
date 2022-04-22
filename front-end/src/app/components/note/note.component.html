@@ -1,0 +1,25 @@
+<div class="back" (click)="goBack()">
+  <i class="fa fa-chevron-left fa-2x" aria-hidden="true"></i>
+  <p class="back">Go back</p>
+</div>
+<div class="header">
+  <div class="title-wrapper">
+    <p class="header">{{note.header}}</p>
+    <p *ngFor="let tag of note.getListOfSpecialties()" class="note-tag badge rounded-pill bg-primary">
+      {{tag}}
+    </p>
+
+    <div *ngIf="note.user.id == user.id">
+      <button type="button" class="btn btn-group" (click)="onEditNote(note)">Edit note</button>
+      <button type="button" class="btn btn-group" (click)="remove()">Delete note</button>
+    </div>
+  </div>
+  <p class="note-subtitle">Created {{getTimeAgo(note.date)}} by {{note.user?.getFullName()}}</p>
+</div>
+<div class="content">
+  <div>
+    <markdown ngPreserveWhitespaces>
+      {{note.content}}
+    </markdown>
+  </div>
+</div>

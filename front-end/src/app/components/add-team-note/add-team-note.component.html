@@ -1,0 +1,67 @@
+<div class="add-note-wrapper">
+  <div class="header-group">
+    <p>Header</p>
+    <div class="input-group">
+      <input [(ngModel)]="note.header" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="type-group">
+    <p>Note Type</p>
+    <div class="input-group">
+      <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown"
+              aria-expanded="false">
+        {{getCurrentType()}}
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a class="dropdown-item"
+             [class.active]="!note.isPublic" (click)="note.isPublic = false">
+            {{getType(false)}}
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item"
+             [class.active]="note.isPublic" (click)="note.isPublic = true">
+            {{getType(true)}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="tags-group">
+    <p>Tags</p>
+    <div class="input-group query-tags">
+      <button *ngIf="tags.length > 0" class="btn btn-outline-secondary dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+        Tags
+      </button>
+      <ul *ngIf="tags.length" class="dropdown-menu">
+        <li *ngFor="let tag of tags">
+          <a class="dropdown-item" (click)="toggleTag(tag)" [class.active]="tagIsSelected(tag)">
+            {{tag}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="tags">
+    <div class="tags-spacer"></div>
+    <span (click)="toggleTag(tag)" *ngFor="let tag of note.specialties"
+          class="filter-tag badge rounded-pill bg-primary">
+        <span class="circle-tag"><span class="delete-tag"></span></span>
+      {{tag}}
+      </span>
+  </div>
+  <div class="content-group">
+    <p>Content</p>
+    <md-editor class="editor" name="Content"
+               [(ngModel)]="note.content"
+               [options]="options"
+               required>
+    </md-editor>
+  </div>
+  <div class="submit-button-group">
+    <button type="button" class="btn btn-primary" (click)="submitNote()">Submit Note</button>
+  </div>
+</div>

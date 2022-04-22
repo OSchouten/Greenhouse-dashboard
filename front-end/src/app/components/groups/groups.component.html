@@ -1,0 +1,127 @@
+<div class="py-5 team1">
+  <div class="container">
+    <div *ngIf="currentTeam !== undefined; else createTeam" class="row mb-3 text-center">
+      <div class="team-name-wrapper col-md-12 ps-4">
+        <div *ngIf="!updatingGroupName; else updateGroupNameDOM">
+          <span class="team-name pb-5 text-center">Team: {{currentTeam.teamName}}</span>
+          <button type="button" class="btn btn-default btn-sm" (click)="updatingGroupName = true">
+            <fa-icon [icon]="faPencilAlt"></fa-icon>
+            Edit
+          </button>
+        </div>
+        <ng-template #updateGroupNameDOM>
+          <input [(ngModel)]="groupName" [ngClass]="{'is-invalid' : isNotValid}" class="team-name text-center"
+                 type="text" maxlength="20">
+          <button (click)="updateGroupName()" type="button" class="btn btn-default btn-sm">
+            <fa-icon [icon]="faSave"></fa-icon>
+            Save
+          </button>
+          <br>
+          <span class="error-message" *ngIf="isNotValid">Team name must contain more than just whitespace.</span>
+        </ng-template>
+      </div>
+      <div class="row d-flex justify-content-center" id="memberCard">
+        <div class="col-lg-6" *ngFor="let user of currentTeam.users; let i = index">
+          <div class="cardNew shadow-lg card-shadow border-0 mb-4 h-75 w-75" data-bs-toggle="modal"
+               [attr.data-bs-target]="'#memberModal' + i" type="button">
+            <div class="row no-gutters w-100">
+              <!--TODO: We have to base this on the User class, the User class doesn't yet have profile pictures.-->
+              <img *ngIf="true" src="/assets/img/stock profile picture.jpg"
+                   class="card-img img-fluid mh-100 mw-100" alt="profilePicture">
+              <!--TODO: We have to base this on the User class, the User class doesn't yet have profile pictures.-->
+              <img *ngIf="false" src="{{null}}"
+                   class="card-img img-fluid mh-100 mw-100" alt="profilePicture">
+            </div>
+            <div class="col-md-7">
+              <div class="p-4">
+                <h3 class="mb-4 font-weight-medium">{{user.firstName}} {{user.lastName}}</h3>
+                <h4 class="mb-2">Specialty: {{user.specialty}}</h4>
+              </div>
+            </div>
+          </div>
+          <div class="modal" tabindex="-1" id="memberModal{{i}}">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+              <div class="modal-content">
+                <div class="container p-0 border-0">
+                  <div class="col-md-12">
+                    <div class="panel panel-white profile-widget panel-shadow w-100">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <button type="button" class="btn-close btn-lg float-end btn-close-white"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                          <div class="image-container bg2">
+                            <!--TODO: We have to base this on the User class, the User class doesn't yet have profile pictures.-->
+                            <img *ngIf="true" src="/assets/img/stock profile picture.jpg"
+                                 class="avatar" alt="avatar">
+                            <!--TODO: We have to base this on the User class, the User class doesn't yet have profile pictures.-->
+                            <img *ngIf="false" src="{{null}}"
+                                 class="avatar" alt="avatar">
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="details">
+                            <h2>{{user.firstName}} {{user.lastName}}<i class="fa fa-shield"></i></h2>
+                            <!--TODO: The user doesn't have a biography. At least for now.-->
+                            <!--                            <h3>{{user.biography}}</h3>-->
+                          </div>
+                          <div class="col-md-12">
+                            <div class="card mb-3">
+                              <div class="card-body">
+                                <div class="row m-0">
+                                  <div class="col-sm-4 p-0">
+                                    <h2 class="mb-0">Team number</h2>
+                                  </div>
+                                  <h3 class="col-sm-8 text-secondary">
+                                    {{currentTeam.id}}
+                                  </h3>
+                                </div>
+                                <hr class="m-0">
+                                <div class="row m-0 pt-2 ">
+                                  <div class="col-sm-4 p-0">
+                                    <h2 class="mb-0">Email</h2>
+                                  </div>
+                                  <h3 class="col-sm-8" style="color: blue"
+                                      (click)="sendMail(user.email)" type="button">
+                                    {{user.email}}
+                                  </h3>
+                                </div>
+                                <hr class="m-0">
+                                <div class="row m-0 pt-3">
+                                  <div class="col-sm-4">
+                                    <h2 class="mb-0">Specialty</h2>
+                                  </div>
+                                  <h3 class="col-sm-8 text-secondary">
+                                    {{user.specialty}}
+                                  </h3>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #createTeam>
+      <div class="create-group w-100">
+        <div class="w-50" *ngIf="accountService.isAdmin">
+          <p>It looks like you're not part of a group yet. Do you want to create a new group?</p>
+          <a class="btn btn-primary" href="./groups/create">Create Group</a>
+        </div>
+        <div class="w-50" *ngIf="!accountService.isAdmin">
+          <p>It looks like you're not part of a group yet. Ask an admin to add you to a group.</p>
+        </div>
+
+      </div>
+    </ng-template>
+  </div>
+</div>

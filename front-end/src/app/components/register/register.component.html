@@ -1,0 +1,89 @@
+<div class="rounded d-flex justify-content-center styleTop" xmlns="http://www.w3.org/1999/xhtml">
+  <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
+    <div class="text-center">
+      <h1 class="text-primary ">Create Account</h1>
+    </div>
+    <div class="p-4">
+      <form action="">
+
+        <div class="input-group mb-3"><span class="input-group-text bg-primary"><i
+          class="bi bi-key-fill text-white"></i></span>
+          <input type="text" class="form-control" name="firstName" placeholder="First name" [(ngModel)]="user.firstName"
+                 [ngClass]="{'is-invalid' : !firstName && error}">
+        </div>
+        <div class="feedback" *ngIf="!firstName && error">
+          <p>First name is required.</p>
+        </div>
+
+        <div class="input-group mb-3"><span class="input-group-text bg-primary"><i
+          class="bi bi-key-fill text-white"></i></span>
+          <input type="text" class="form-control" name="lastName" placeholder="Last name" [(ngModel)]="user.lastName"
+                 [ngClass]="{'is-invalid' : !lastName && error}">
+        </div>
+        <div class="feedback" *ngIf="!lastName && error">
+          <p>Last name is required.</p>
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text bg-primary"><i class="bi bi-envelope text-white"></i></span>
+          <input type="email" class="form-control" name="email" placeholder="Email" [(ngModel)]="user.email"
+                 [ngClass]="{'is-invalid' : !email && error}">
+        </div>
+        <div class="feedback" *ngIf="!email && error">
+          <p>Email is required.</p>
+        </div>
+        <div class="feedback" *ngIf="!this.AccountsService.validateEmail(this.email) && error && email">
+          <p>Email is invalid.</p>
+        </div>
+        <div class="input-group mb-3"><span class="input-group-text bg-primary"><i
+          class="bi bi-key-fill text-white"></i></span>
+          <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="user.password"
+                 [ngClass]="{'is-invalid' : !password && error}">
+        </div>
+        <div class="feedback" *ngIf="!password && error">
+          <p>Password is required.</p>
+        </div>
+        <div class="input-group mb-3"><span class="input-group-text bg-primary"><i
+          class="bi bi-key-fill text-white"></i></span>
+          <input type="password" class="form-control" name="password2" placeholder="Password" [(ngModel)]="password2"
+                 [ngClass]="{'is-invalid' : !password2 && error}">
+        </div>
+        <div class="feedback" *ngIf="!password2 && error">
+          <p>Password is required.</p>
+        </div>
+
+        <div class="input-group mb-3"><span class="input-group-text bg-primary"><i
+          class="bi bi-key-fill text-white"></i></span>
+          <select [(ngModel)]="user.specialty" class="form-control" name="specialty"
+                  [ngClass]="{'is-invalid' : !specialty && error}">
+            <option value="0" selected>Agronomy</option>
+            <option value="1">Botany</option>
+            <option value="2">Geology</option>
+            <option value="3">Hydrology</option>
+            <option value="4">Climate Science</option>
+          </select>
+        </div>
+        <div class="feedback" *ngIf="!specialty && error">
+          <p>Specialty is required.</p>
+        </div>
+
+        <div class="input-group mb-3"><span class="input-group-text bg-primary"><i
+          class="bi bi-key-fill text-white"></i></span>
+          <input type="text" class="form-control" name="token" placeholder="Token" [(ngModel)]="token"
+                 [ngClass]="{'is-invalid' : !token && error}">
+        </div>
+        <div class="feedback" *ngIf="!password && error">
+          <p>Token is required.</p>
+        </div>
+
+        <div class="d-grid col-12 mx-auto">
+          <button class="btn btn-primary" type="button" (click)="register()">Sign up</button>
+        </div>
+        <p class="text-center mt-3">Already have an account?
+          <a routerLink="/login" [routerLinkActive]="['is-active']"><span class="text-primary">Sign in</span></a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+

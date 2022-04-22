@@ -1,0 +1,191 @@
+<div class="container">
+  <div class="col">
+    <div class="row">
+      <div class="col mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="e-profile">
+              <div class="row">
+                <div class="col-12 col-sm-auto mb-3">
+                  <img class="profile-picture" src="assets/img/placeholder.png">
+                </div>
+                <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                  <div class="text-center text-sm-left mb-2 mb-sm-0">
+                  </div>
+                </div>
+              </div>
+              <nav>
+                <div class="nav nav-tabs" role="tablist">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#account-details" type="button"
+                          role="tab" aria-selected="true">Account details
+                  </button>
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#change-password" type="button"
+                          role="tab" aria-selected="false">Change password
+                  </button>
+                </div>
+              </nav>
+
+              <div class="tab-content">
+                <div class="tab-pane fade show active" id="account-details" role="tabpanel">
+                  <div class="tab-content pt-3">
+                    <div class="tab-pane active">
+                      <form class="form" id="account-details-form">
+                        <div class="row">
+                          <div class="col">
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>First name</label>
+                                  <input class="form-control" type="text" name="firstName" id="firstName"
+                                         [(ngModel)]="firstName"
+                                         [ngClass]="{'is-invalid' : (!firstName && error)}">
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>Last name</label>
+                                  <input class="form-control" type="text" name="lastName" id="lastName"
+                                         [(ngModel)]="lastName"
+                                         [ngClass]="{'is-invalid' : (!lastName && error)}">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="feedback" *ngIf="!firstName && error">
+                                  <p>First name is required.</p>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="feedback" *ngIf="!lastName && error">
+                                  <p>Last name is required.</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>Email</label>
+                                  <input class="form-control" type="email" name="email" id="email" [(ngModel)]="email"
+                                         [ngClass]="{'is-invalid' : (!email && error) || (!this.AccountsService.validateEmail(this.email) && error && email)}">
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>Specialty</label>
+                                  <select class="form-select" name="specialty" id="specialty" [(ngModel)]="specialty">
+                                    <option value="Agronomy" [selected]="specialty == 'Agronomy'">Agronomy</option>
+                                    <option value="Botany" [selected]="specialty == 'Botany'">Botany</option>
+                                    <option value="Geology" [selected]="specialty == 'Geology'">Geology</option>
+                                    <option value="Hydrology" [selected]="specialty == 'Hydrology'">Hydrology</option>
+                                    <option value="Climate Science" [selected]="specialty == 'Climate Science'">Climate
+                                      Science
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="feedback" *ngIf="!email && error">
+                                  <p>Email is required.</p>
+                                </div>
+                                <div class="feedback"
+                                     *ngIf="!this.AccountsService.validateEmail(this.email) && error && email">
+                                  <p>Email is invalid.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col d-flex justify-content-end">
+                            <button class="btn btn-primary mt-3" type="submit" (click)="saveUserDetails()">Save
+                              changes
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="change-password" role="tabpanel">
+                  <form class="form" id="change-password-form">
+                    <div class="row mt-3">
+                      <div class="col-12 col-sm-6 mb-3">
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label>New password</label>
+                              <input class="form-control" type="password" name="newPassword" id="newPassword"
+                                     [(ngModel)]="newPassword"
+                                     [ngClass]="{'is-invalid' : (!newPassword && error) || (!this.AccountsService.validatePassword(this.newPassword) && error && newPassword)}">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-6">
+                            <div class="feedback" *ngIf="!newPassword && error">
+                              <p>New password is required.</p>
+                            </div>
+                            <div class="feedback"
+                                 *ngIf="!this.AccountsService.validatePassword(this.newPassword) && error && newPassword">
+                              <p>New password is invalid. (Must be at least 8 characters long.)</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label>Confirm password</label>
+                              <input class="form-control" type="password" name="confirmPassword" id="confirmPassword"
+                                     [(ngModel)]="confirmPassword"
+                                     [ngClass]="{'is-invalid' : !confirmPassword && error}">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-6">
+                            <div class="feedback" *ngIf="!confirmPassword && error">
+                              <p>New password is required.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col d-flex justify-content-end">
+                          <button class="btn btn-primary mt-3" type="submit" (click)="savePassword()">Save
+                            changes
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Change picture modal -->
+<div class="modal fade in" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="customFile" accept="image/*">
+          <label class="custom-file-label" for="customFile">Choose image</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
